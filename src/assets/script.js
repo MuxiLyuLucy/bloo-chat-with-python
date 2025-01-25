@@ -6,16 +6,16 @@ document.addEventListener("DOMContentLoaded", (_event) => {
   const messages = document.getElementById("messages");
   const messageToSend = document.getElementById("txt");
   form.addEventListener("submit", (event) => {
+    event.preventDefault();
     socket.emit("message", {
       user: username,
       message: messageToSend.value,
     });
     messageToSend.value = "";
-    event.preventDefault();
   });
 
   // append the chat text message
-  socket.on("message", (msg) => {
+  socket.on("message_another", (msg) => {
     const message = document.createElement("li");
     message.innerHTML = `<strong>${msg.user}</strong>: ${msg.message}`;
     messages.appendChild(message);
